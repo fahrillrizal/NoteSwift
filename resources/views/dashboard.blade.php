@@ -1,4 +1,3 @@
-
 @section('title')
 @section('content')
 
