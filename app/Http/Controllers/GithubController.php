@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
-class GoogleController extends Controller
+class GitHubController extends Controller
 {
-    public function redirectToGoogle(): RedirectResponse
+    public function redirectToGitHub(): RedirectResponse
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('github')->redirect();
     }
 
-    public function handleGoogleCallback(): RedirectResponse
+    public function handleGitHubCallback(): RedirectResponse
     {
-        $googleUser = Socialite::driver('google')->user();
+        $githubUser = Socialite::driver('github')->user();
 
-        $user = $this->findOrCreateUser('google_id', $googleUser->id, $googleUser->name, $googleUser->email);
+        $user = $this->findOrCreateUser('github_id', $githubUser->id, $githubUser->name, $githubUser->email);
 
         Auth::login($user, true);
 
@@ -32,6 +32,16 @@ class GoogleController extends Controller
 
         if ($existingUser) {
             return $existingUser;
+        }
+
+        $existingUserByEmail = User::where('email', $email)->first();
+
+        if ($existingUserByEmail) {
+            // Update the existing user with GitHub ID
+            $existingUserByEmail->$provider = $providerId;
+            $existingUserByEmail->save();
+
+            return $existingUserByEmail;
         }
 
         $newUser = User::create([

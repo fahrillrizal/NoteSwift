@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\GithubController;
 use App\Http\Controllers\DashboardController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,5 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('auth/github', [GithubController::class, 'redirectToGitHub'])->name('auth.github');
+Route::get('login/github/callback', [GithubController::class, 'handleGithubCallback']);
 
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
