@@ -37,4 +37,10 @@ Route::group(['prefix' => 'todo'], function () {
     Route::get('/search', [TodoController::class, 'search'])->name('todo.search');
 });
 
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('auth/github', [GithubController::class, 'redirectToGitHub'])->name('auth.github');
+Route::get('login/github/callback', [GithubController::class, 'handleGithubCallback']);
+
+
 Route::get('/todo', [TodoController::class, 'index'])->name('todo.index');
