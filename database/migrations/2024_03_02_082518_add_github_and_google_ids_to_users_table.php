@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('github_id')->nullable();
             $table->string('google_id')->nullable();
+            $table->string('password_reset_code')->nullable();
         });
     }
 

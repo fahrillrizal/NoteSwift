@@ -23,7 +23,7 @@ class GitHubController extends Controller
 
         Auth::login($user, true);
 
-        return redirect('/home');
+        return redirect('/todo');
     }
 
     protected function findOrCreateUser($provider, $providerId, $name, $email)
@@ -37,7 +37,6 @@ class GitHubController extends Controller
         $existingUserByEmail = User::where('email', $email)->first();
 
         if ($existingUserByEmail) {
-            // Update the existing user with GitHub ID
             $existingUserByEmail->$provider = $providerId;
             $existingUserByEmail->save();
 

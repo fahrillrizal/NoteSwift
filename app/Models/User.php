@@ -24,6 +24,7 @@ class User extends Authenticatable
         'github_id',
         'auth_type',
         'google_id',
+        'password_reset_code',
     ];
 
     /**

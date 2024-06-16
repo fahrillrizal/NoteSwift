@@ -23,7 +23,7 @@ class GoogleController extends Controller
 
         Auth::login($user, true);
 
-        return redirect('/home');
+        return redirect('/todo');
     }
 
     protected function findOrCreateUser($provider, $providerId, $name, $email)
